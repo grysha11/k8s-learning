@@ -4,6 +4,7 @@ metadata:
   name: synergychat-crawler
   labels:
     app: synergychat-crawler
+  namespace: crawler
 spec:
   replicas: 1
   selector:
@@ -44,6 +45,9 @@ spec:
                 configMapKeyRef:
                   name: synergychat-crawler-configmap
                   key: CRAWLER_DB_PATH
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
         - name: synergychat-crawler-3
           image: "bootdotdev/synergychat-crawler:latest"
           env:
@@ -62,3 +66,6 @@ spec:
                 configMapKeyRef:
                   name: synergychat-crawler-configmap
                   key: CRAWLER_DB_PATH
+          volumeMounts:
+            - name: cache-volume
+              mountPath: /cache
